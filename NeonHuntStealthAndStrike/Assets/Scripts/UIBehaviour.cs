@@ -49,5 +49,6 @@ public class UIBehaviour : MonoBehaviour
     public void ButtonExit()
     {
         Application.Quit();
+        Debug.Log("Salir");
     }
 }
