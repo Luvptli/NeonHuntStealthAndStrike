@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIBehaviour : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class UIBehaviour : MonoBehaviour
     public GameObject canvasMainMenu;
     [SerializeField]
     public GameObject canvasOptions;
+
+    [SerializeField]
+    Slider slideVolume;
+    [SerializeField]
+    Toggle toggleCompleteScreen;
 
     void Start()
     {
@@ -27,10 +33,21 @@ public class UIBehaviour : MonoBehaviour
         {
             canvasMainMenu.SetActive(false);
         });
+        LeanTween.moveLocalX(canvasOptions, -1920f, 1f);
+    }
+
+    public void ButtonReturn()
+    {
+        canvasMainMenu.SetActive(true);
+        LeanTween.moveLocalX(canvasOptions, 0f, 1f).setOnComplete(() =>
+        {
+            canvasOptions.SetActive(false);
+        });
+        LeanTween.moveLocalX(canvasMainMenu, 0f, 1f);
     }
 
     public void ButtonExit()
     {
-        
+        Application.Quit();
     }
 }
