@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,6 +20,17 @@ public class UIBehaviour : MonoBehaviour
     public GameObject canvasWin;
     [SerializeField]
     public GameObject canvasLose;
+    [SerializeField]
+    public GameObject player;
+    [SerializeField]
+    public GameObject mainCamera;
+
+    [SerializeField]
+    public TextMeshProUGUI timeLabel;
+    [SerializeField]
+    public float timer;
+    [SerializeField]
+    public TextMeshProUGUI pointsLabel;
 
     [SerializeField]
     float valueVolume;
@@ -28,9 +41,6 @@ public class UIBehaviour : MonoBehaviour
 
     [SerializeField]
     Toggle toggleCompleteScreen;
-
-    [SerializeField]
-    public GameObject player;
 
     public bool estaJugando;
 
@@ -44,8 +54,7 @@ public class UIBehaviour : MonoBehaviour
         canvasLose.SetActive(false);
         estaJugando = false;
 
-        player.SetActive(false);
-        //deshabilitar thirdPersonController hasta que le des al boton start
+        timer = 7;
 
         slideVolume.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f);
         AudioListener.volume = slideVolume.value;
@@ -67,14 +76,17 @@ public class UIBehaviour : MonoBehaviour
         AudioListener.volume = slideVolume.value;
         Mute();
         PauseGame();
+        timeLabel.text= timer.ToString();
+        if (Input.GetKeyDown(KeyCode.Space))
+        { ButtonStart(); }
     }
     public void ButtonStart()
     {
         canvasMainMenu.SetActive(false);
         canvasOptions.SetActive(false);
-        estaJugando = true;
         canvasGame.SetActive(true);
-        player.SetActive(true);
+        estaJugando = true;
+        timer -=Time.deltaTime;
     }
 
     public void ButtonOptions()
@@ -138,6 +150,7 @@ public class UIBehaviour : MonoBehaviour
         {
             canvasPause.SetActive(true);
             canvasGame.SetActive(false);
+            player.SetActive(false);
             estaJugando = false;
         }
         else if (estaJugando == false && canvasPause == true && Input.GetKeyDown(KeyCode.Escape))
@@ -150,5 +163,11 @@ public class UIBehaviour : MonoBehaviour
     public void ButtonRestart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ButtonContinue()
+    {
+        canvasPause.SetActive(false);
+        canvasGame.SetActive(true);
     }
 }
