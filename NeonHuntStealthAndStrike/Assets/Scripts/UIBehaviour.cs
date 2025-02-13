@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIBehaviour : MonoBehaviour
@@ -13,6 +14,10 @@ public class UIBehaviour : MonoBehaviour
     public GameObject canvasGame;
     [SerializeField]
     public GameObject canvasPause;
+    [SerializeField]
+    public GameObject canvasWin;
+    [SerializeField]
+    public GameObject canvasLose;
 
     [SerializeField]
     float valueVolume;
@@ -20,11 +25,12 @@ public class UIBehaviour : MonoBehaviour
     Slider slideVolume;
     [SerializeField]
     Image imageMuteO;
-    [SerializeField]
-    Image imageMuteG;
 
     [SerializeField]
     Toggle toggleCompleteScreen;
+
+    [SerializeField]
+    public GameObject player;
 
     public bool estaJugando;
 
@@ -32,7 +38,14 @@ public class UIBehaviour : MonoBehaviour
     {
         canvasMainMenu.SetActive(true);
         canvasOptions.SetActive(false);
+        canvasGame.SetActive(false);
+        canvasPause.SetActive(false);
+        canvasWin.SetActive(false);
+        canvasLose.SetActive(false);
         estaJugando = false;
+
+        player.SetActive(false);
+        //deshabilitar thirdPersonController hasta que le des al boton start
 
         slideVolume.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f);
         AudioListener.volume = slideVolume.value;
@@ -60,6 +73,8 @@ public class UIBehaviour : MonoBehaviour
         canvasMainMenu.SetActive(false);
         canvasOptions.SetActive(false);
         estaJugando = true;
+        canvasGame.SetActive(true);
+        player.SetActive(true);
     }
 
     public void ButtonOptions()
@@ -87,12 +102,10 @@ public class UIBehaviour : MonoBehaviour
         if (valueVolume == 0)
         {
             imageMuteO.enabled = true;
-            imageMuteG.enabled = true;
         }
         else
         {
             imageMuteO.enabled = false;
-            imageMuteG.enabled = false;
         }
     }
 
@@ -132,5 +145,10 @@ public class UIBehaviour : MonoBehaviour
             canvasPause.SetActive(false);
             canvasGame.SetActive(true);
         }
+    }
+
+    public void ButtonRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

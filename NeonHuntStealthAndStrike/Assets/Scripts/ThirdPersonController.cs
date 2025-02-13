@@ -134,6 +134,7 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             GroundedCheck();
             Move();
+            Shoot();
         }
 
         private void LateUpdate()
@@ -292,6 +293,14 @@ namespace StarterAssets
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+            }
+        }
+
+        private void Shoot()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+
             }
         }
     }
