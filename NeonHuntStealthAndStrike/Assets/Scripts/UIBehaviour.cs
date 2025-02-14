@@ -26,13 +26,6 @@ public class UIBehaviour : MonoBehaviour
     public GameObject mainCamera;
 
     [SerializeField]
-    public TextMeshProUGUI timeLabel;
-    [SerializeField]
-    public float timer;
-    [SerializeField]
-    public TextMeshProUGUI pointsLabel;
-
-    [SerializeField]
     float valueVolume;
     [SerializeField]
     Slider slideVolume;
@@ -54,8 +47,6 @@ public class UIBehaviour : MonoBehaviour
         canvasLose.SetActive(false);
         estaJugando = false;
 
-        timer = 7;
-
         slideVolume.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f);
         AudioListener.volume = slideVolume.value;
         Mute();
@@ -76,7 +67,6 @@ public class UIBehaviour : MonoBehaviour
         AudioListener.volume = slideVolume.value;
         Mute();
         PauseGame();
-        timeLabel.text= timer.ToString();
         if (Input.GetKeyDown(KeyCode.Space))
         { ButtonStart(); }
     }
@@ -86,7 +76,6 @@ public class UIBehaviour : MonoBehaviour
         canvasOptions.SetActive(false);
         canvasGame.SetActive(true);
         estaJugando = true;
-        timer -=Time.deltaTime;
     }
 
     public void ButtonOptions()
@@ -149,14 +138,13 @@ public class UIBehaviour : MonoBehaviour
         if (estaJugando && Input.GetKeyDown(KeyCode.Escape))
         {
             canvasPause.SetActive(true);
-            canvasGame.SetActive(false);
             player.SetActive(false);
             estaJugando = false;
         }
         else if (estaJugando == false && canvasPause == true && Input.GetKeyDown(KeyCode.Escape))
         {
             canvasPause.SetActive(false);
-            canvasGame.SetActive(true);
+            estaJugando= true;
         }
     }
 
