@@ -17,6 +17,8 @@ public class GameUIBehaviour : MonoBehaviour
     [SerializeField]
     public UIBehaviour uiBehaviour;
 
+    //añadir cuando en ui behaviour le des a start comienza a contar el tiempo
+
     void Start()
     {
         timer = 7;
