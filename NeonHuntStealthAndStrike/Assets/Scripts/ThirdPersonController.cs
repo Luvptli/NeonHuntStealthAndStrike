@@ -63,6 +63,9 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        public GameObject wheel;
+        public float rotationSpeed = 100f;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -105,7 +108,6 @@ namespace StarterAssets
             }
         }
 
-
         private void Awake()
         {
             // get a reference to our main camera
@@ -136,6 +138,14 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             GroundedCheck();
             Move();
+            if (_input.move != Vector2.zero)
+            {
+                float direction = Vector3.Dot(transform.forward, _controller.velocity.normalized);
+
+                float rotationAmount = _speed * direction * 100f * Time.deltaTime;
+
+                wheel.transform.Rotate(Vector3.back * rotationAmount, Space.Self);
+            }
             Shoot();
         }
 

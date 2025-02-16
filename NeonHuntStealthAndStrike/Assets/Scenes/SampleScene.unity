@@ -122,6 +122,80 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &9284440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4864317745985206197, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+  m_PrefabInstance: {fileID: 1216384146}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9284444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9284440}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 13f87bb34cf1b7d4384e5d82fec9aeab, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!54 &9284445
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9284440}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &9284446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9284440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ca622d42c03b814dae2f53cc680ef6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &43117600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
@@ -59946,6 +60020,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7048011640991513784, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.553986
+      objectReference: {fileID: 0}
+    - target: {fileID: -7048011640991513784, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.54579926
+      objectReference: {fileID: 0}
+    - target: {fileID: -7048011640991513784, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.07967472
+      objectReference: {fileID: 0}
+    - target: {fileID: -7048011640991513784, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.69796264
+      objectReference: {fileID: 0}
+    - target: {fileID: -7048011640991513784, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7048011640991513784, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7048011640991513784, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.71613425
+      objectReference: {fileID: 0}
+    - target: {fileID: -7048011640991513784, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 91.472
+      objectReference: {fileID: 0}
     - target: {fileID: 205030529756421233, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -59965,7 +60071,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -4864317745985206197, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9284445}
+    - targetCorrespondingSourceObject: {fileID: -4864317745985206197, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9284444}
+    - targetCorrespondingSourceObject: {fileID: -4864317745985206197, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9284446}
   m_SourcePrefab: {fileID: 100100000, guid: fdad89f2b24f55c41b6a2b7eb4a44d90, type: 3}
 --- !u!1 &1229907552
 GameObject:
@@ -60005,7 +60120,6 @@ MonoBehaviour:
   canvasPause: {fileID: 281692609}
   canvasWin: {fileID: 1547951860}
   canvasLose: {fileID: 1666133298}
-  player: {fileID: 0}
   mainCamera: {fileID: 0}
   valueVolume: 0
   slideVolume: {fileID: 751209840}
@@ -60173,7 +60287,23 @@ PrefabInstance:
       value: 0.49
       objectReference: {fileID: 0}
     - target: {fileID: 1925873226565265913, guid: 2553cec8fdb3eb643bbe9f2ec880c472, type: 3}
+      propertyPath: wheel
+      value: 
+      objectReference: {fileID: 9284440}
+    - target: {fileID: 1925873226565265913, guid: 2553cec8fdb3eb643bbe9f2ec880c472, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925873226565265913, guid: 2553cec8fdb3eb643bbe9f2ec880c472, type: 3}
+      propertyPath: rotationSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925873226565265918, guid: 2553cec8fdb3eb643bbe9f2ec880c472, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2468714030164847400, guid: 2553cec8fdb3eb643bbe9f2ec880c472, type: 3}
+      propertyPath: cursorLocked
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6074239116653777065, guid: 2553cec8fdb3eb643bbe9f2ec880c472, type: 3}
