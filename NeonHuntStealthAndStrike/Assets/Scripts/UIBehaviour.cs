@@ -21,7 +21,7 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField]
     public GameObject canvasLose;
     [SerializeField]
-    public GameObject mainCamera;
+    public GameObject canvasOptionsPause;
 
     [SerializeField]
     float valueVolume;
@@ -43,6 +43,7 @@ public class UIBehaviour : MonoBehaviour
         canvasPause.SetActive(false);
         canvasWin.SetActive(false);
         canvasLose.SetActive(false);
+        canvasOptionsPause.SetActive(false);
         estaJugando = false;
 
         slideVolume.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f);
@@ -91,6 +92,7 @@ public class UIBehaviour : MonoBehaviour
     public void ButtonOptionsPause()
     {
         canvasPause.SetActive(false);
+        canvasOptionsPause.SetActive(true);
     }
 
     public void VolumenSlide(float valor)
@@ -130,6 +132,12 @@ public class UIBehaviour : MonoBehaviour
         estaJugando = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void ButtonReturnOpitonsPause()
+    {
+        canvasPause.SetActive(true);
+        canvasOptionsPause.SetActive(false);
     }
 
     public void ButtonExit()
