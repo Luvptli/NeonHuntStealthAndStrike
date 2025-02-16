@@ -9,26 +9,34 @@ public class GameUIBehaviour : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI timeLabel;
     [SerializeField]
-    public float timer;
+    public float timer = 420;
     [SerializeField]
     public TextMeshProUGUI pointsLabel;
     [SerializeField]
-    public float pointer;
+    public float pointer = 0;
     [SerializeField]
-    public UIBehaviour uiBehaviour;
+    UIBehaviour uiBehaviour;
 
-    //añadir cuando en ui behaviour le des a start comienza a contar el tiempo
-
-    void Start()
-    {
-        timer = 7;
-        pointer = 0;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        timeLabel.text = timer.ToString();
-        pointsLabel.text = pointsLabel.ToString();  
+        float minutos = Mathf.FloorToInt(timer / 60F);
+        float segundos = Mathf.FloorToInt(timer % 60F);
+
+        if (uiBehaviour.estaJugando==true)
+        {
+            timer -= Time.deltaTime;
+            timeLabel.text = timer.ToString();
+            timeLabel.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+            if (timer <= 0)
+            {
+                uiBehaviour.canvasLose.SetActive(true);
+                uiBehaviour.canvasGame.SetActive(false);
+                uiBehaviour.estaJugando = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+
+        
     }
 }
