@@ -31,8 +31,6 @@ namespace StarterAssets
         public AudioClip LandingAudioClip;
         public AudioClip[] WheelAudioClips;
         [Range(0, 1)] public float WheelAudioVolume = 0.5f;
-        public AudioClip[] ShootAudioClips;
-        [Range(0, 1)] public float ShootAudioVolume = 0.5f;
 
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
@@ -146,7 +144,6 @@ namespace StarterAssets
 
                 wheel.transform.Rotate(Vector3.back * rotationAmount, Space.Self);
             }
-            Shoot();
         }
 
         private void LateUpdate()
@@ -305,14 +302,6 @@ namespace StarterAssets
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),WheelAudioVolume);
-            }
-        }
-
-        private void Shoot()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-
             }
         }
     }

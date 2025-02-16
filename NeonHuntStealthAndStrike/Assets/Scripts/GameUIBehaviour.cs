@@ -34,9 +34,8 @@ public class GameUIBehaviour : MonoBehaviour
                 uiBehaviour.estaJugando = false;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                Time.timeScale = 0f;
             }
-        }
-
-        
+        }        
     }
 }
