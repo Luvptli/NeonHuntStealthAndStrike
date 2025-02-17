@@ -40,17 +40,15 @@ public class PlayerShoot : MonoBehaviour
 
         if (currentAmmo > 0)
         {
-            // Instanciar la bala
             Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
 
-            // Reproducir sonido de disparo si hay clips
             if (shootAudioClips.Length > 0)
             {
                 var index = Random.Range(0, shootAudioClips.Length);
                 AudioSource.PlayClipAtPoint(shootAudioClips[index], transform.position, shootAudioVolume);
             }
 
-            currentAmmo--; // Disminuir la munición
+            currentAmmo--;
             _animator.SetTrigger(_animIDShoot); // Activar animación de disparo
         }
         else
