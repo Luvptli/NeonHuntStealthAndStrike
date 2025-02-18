@@ -49,7 +49,7 @@ public class PlayerShoot : MonoBehaviour
             }
 
             currentAmmo--;
-            _animator.SetTrigger(_animIDShoot); // Activar animación de disparo
+            //_animator.SetTrigger(_animIDShoot); // Activar animación de disparo
         }
         else
         {
@@ -62,7 +62,7 @@ public class PlayerShoot : MonoBehaviour
         isReloading = true;
         Debug.Log("Reloading...");
         //_animator.SetTrigger(_animIDReload); // Activar animación de recarga
-        yield return new WaitForSeconds(0.0002f); // Simula el tiempo de recarga
+        yield return new WaitForSeconds(0.2f); // Simula el tiempo de recarga
 
         currentAmmo = maxAmmo;
         isReloading = false;

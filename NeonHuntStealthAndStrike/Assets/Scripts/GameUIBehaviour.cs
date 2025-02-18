@@ -17,6 +17,8 @@ public class GameUIBehaviour : MonoBehaviour
     [SerializeField]
     UIBehaviour uiBehaviour;
 
+    bool m_IsPlayerCaught;
+
     void Update()
     {
         float minutos = Mathf.FloorToInt(timer / 60F);
@@ -27,15 +29,15 @@ public class GameUIBehaviour : MonoBehaviour
             timer -= Time.deltaTime;
             timeLabel.text = timer.ToString();
             timeLabel.text = string.Format("{0:00}:{1:00}", minutos, segundos);
-            if (timer <= 0)
+            if (timer <= 0 || m_IsPlayerCaught)
             {
-                uiBehaviour.canvasLose.SetActive(true);
-                uiBehaviour.canvasGame.SetActive(false);
-                uiBehaviour.estaJugando = false;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                Time.timeScale = 0f;
+                uiBehaviour.EndGame();
             }
         }        
+    }
+
+    public void CaughtPlayer()
+    {
+        m_IsPlayerCaught = true;
     }
 }
