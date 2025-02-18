@@ -19,7 +19,7 @@ namespace StarterAssets
         public float MoveSpeed = 2.0f;
 
         [Tooltip("Sprint speed of the character in m/s")]
-        public float SprintSpeed = 5.335f;
+        public float SprintSpeed = 8.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -273,6 +273,13 @@ namespace StarterAssets
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
+            // **Aplicar inclinación según dirección de movimiento**
+            //float tiltAmountX = 10f; Ajusta este valor según la inclinación deseada
+            
+            float tiltX = _input.move.y * -10; // Adelante/Atrás
+            float tiltZ = _input.move.x * 2;  // Lados
+
+            transform.localRotation = Quaternion.Euler(tiltX, transform.eulerAngles.y, tiltZ);
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
