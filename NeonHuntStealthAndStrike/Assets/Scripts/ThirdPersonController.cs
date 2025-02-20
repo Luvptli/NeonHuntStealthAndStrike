@@ -276,7 +276,7 @@ namespace StarterAssets
             // **Aplicar inclinación según dirección de movimiento**
             //float tiltAmountX = 10f; Ajusta este valor según la inclinación deseada
             
-            float tiltX = _input.move.y * -10; // Adelante/Atrás
+            float tiltX = _input.move.y * -5; // Adelante/Atrás
             float tiltZ = _input.move.x * 2;  // Lados
 
             transform.localRotation = Quaternion.Euler(tiltX, transform.eulerAngles.y, tiltZ);

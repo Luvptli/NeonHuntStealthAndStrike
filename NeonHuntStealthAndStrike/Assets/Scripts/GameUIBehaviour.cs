@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,9 +17,6 @@ public class GameUIBehaviour : MonoBehaviour
     public float pointer = 0;
     [SerializeField]
     UIBehaviour uiBehaviour;
-
-    bool m_IsPlayerCaught;
-
     void Update()
     {
         float minutos = Mathf.FloorToInt(timer / 60F);
@@ -29,15 +27,10 @@ public class GameUIBehaviour : MonoBehaviour
             timer -= Time.deltaTime;
             timeLabel.text = timer.ToString();
             timeLabel.text = string.Format("{0:00}:{1:00}", minutos, segundos);
-            if (timer <= 0 || m_IsPlayerCaught)
+            if (timer <= 0)
             {
                 uiBehaviour.EndGame();
             }
-        }        
-    }
-
-    public void CaughtPlayer()
-    {
-        m_IsPlayerCaught = true;
+        }
     }
 }
