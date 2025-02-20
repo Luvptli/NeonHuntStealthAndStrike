@@ -17,6 +17,39 @@ public class GameUIBehaviour : MonoBehaviour
     public float pointer = 0;
     [SerializeField]
     UIBehaviour uiBehaviour;
+
+    public static GameUIBehaviour instance;
+
+    int enemysFixed;
+    int enemys;
+    int enemyConfined;
+
+    AudioSource audioSource;
+    public AudioClip questCompleted;
+
+    [SerializeField]
+    TextMeshProUGUI textEnemysLeft;
+
+    [SerializeField]
+    GameObject enemyParent;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    void Start()
+    {
+        //AddEnemie();
+        audioSource = GetComponent<AudioSource>();
+    }
     void Update()
     {
         float minutos = Mathf.FloorToInt(timer / 60F);
@@ -33,4 +66,31 @@ public class GameUIBehaviour : MonoBehaviour
             }
         }
     }
+    public void RemoveEnemie()
+    {
+        enemysFixed += 1;
+        ActualizarEtiqueta();
+        if (enemysFixed == enemys)
+        {
+            
+            Debug.Log("Ha sonado la musica");
+        }
+    }
+    public void AddEnemie()
+    {
+        //enemys = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        enemys += 1;
+        ActualizarEtiqueta();
+    }
+    public void ActualizarEtiqueta()
+    {
+        textEnemysLeft.text = enemysFixed.ToString() + "/" + enemys.ToString();
+    }
+    public void SumaConfined()
+    {
+        enemyConfined = enemyParent.transform.childCount;
+        enemys += enemyConfined;
+        ActualizarEtiqueta();
+    }
 }
+
