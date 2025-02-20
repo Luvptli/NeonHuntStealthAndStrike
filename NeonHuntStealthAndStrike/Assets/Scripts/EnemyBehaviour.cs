@@ -5,10 +5,7 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        GameUIBehaviour.instance.AddEnemie();
-    }
+  
 
     // Update is called once per frame
     void Update()
@@ -25,8 +22,5 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    public void EnemyLeft()
-    {
-            GameUIBehaviour.instance.RemoveEnemie();
-    }
+ 
 }
