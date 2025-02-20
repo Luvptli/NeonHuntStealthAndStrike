@@ -7,7 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameUIBehaviour.instance.AddEnemie();
     }
 
     // Update is called once per frame
@@ -23,5 +23,10 @@ public class EnemyBehaviour : MonoBehaviour
             Destroy(gameObject);
             Destroy(other.gameObject);
         }
+    }
+
+    public void EnemyLeft()
+    {
+            GameUIBehaviour.instance.RemoveEnemie();
     }
 }
