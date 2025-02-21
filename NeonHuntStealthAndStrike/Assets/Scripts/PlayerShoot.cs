@@ -8,6 +8,7 @@ public class PlayerShoot : MonoBehaviour
     public int maxAmmo = 2; 
     private int currentAmmo;
     private bool isReloading = false;
+    public float reloadSpeed = 0.5f;
 
     private Animator _animator;
     private int _animIDShoot;
@@ -17,6 +18,7 @@ public class PlayerShoot : MonoBehaviour
     public Transform shootPoint;
     public AudioClip[] shootAudioClips;
     public float shootAudioVolume = 0.5f;
+    UIBehaviour uIBehaviour;
 
     private void Start()
     {
@@ -28,7 +30,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
@@ -62,7 +64,7 @@ public class PlayerShoot : MonoBehaviour
         isReloading = true;
         Debug.Log("Reloading...");
         //_animator.SetTrigger(_animIDReload); // Activar animación de recarga
-        yield return new WaitForSeconds(0.2f); // Simula el tiempo de recarga
+        yield return new WaitForSeconds(reloadSpeed); // Simula el tiempo de recarga
 
         currentAmmo = maxAmmo;
         isReloading = false;

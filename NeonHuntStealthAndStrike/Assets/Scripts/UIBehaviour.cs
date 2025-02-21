@@ -89,11 +89,14 @@ public class UIBehaviour : MonoBehaviour
     public void ButtonOptions()
     {
         canvasOptions.SetActive(true);
-        LeanTween.moveLocalX(canvasMainMenu, -1920f, 1f).setOnComplete(() =>
+        /*LeanTween.moveLocalX(canvasMainMenu, -1920f, 1f).setOnComplete(() =>
         {
             canvasMainMenu.SetActive(false);
         });
-        LeanTween.moveLocalX(canvasOptions, -1920f, 1f);
+        LeanTween.moveLocalX(canvasOptions, -1920f, 1f);*/
+        canvasMainMenu.SetActive(false);
+        canvasLose.SetActive(false);
+        canvasWin.SetActive(false);
         estaJugando = false;
     }
 
@@ -132,11 +135,12 @@ public class UIBehaviour : MonoBehaviour
     public void ButtonReturn()
     {
         canvasMainMenu.SetActive(true);
-        LeanTween.moveLocalX(canvasOptions, 0f, 1f).setOnComplete(() =>
+        canvasOptions.SetActive(false);
+        /*LeanTween.moveLocalX(canvasOptions, 0f, 1f).setOnComplete(() =>
         {
             canvasOptions.SetActive(false);
         });
-        LeanTween.moveLocalX(canvasMainMenu, 0f, 1f);
+        LeanTween.moveLocalX(canvasMainMenu, 0f, 1f);*/
         estaJugando = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
