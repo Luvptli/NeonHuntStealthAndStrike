@@ -181,7 +181,7 @@ public class UIBehaviour : MonoBehaviour
             Time.timeScale = 0f;
             mainCamera.SetActive(false);
         }
-        else if (estaJugando == false && canvasPause == true && Input.GetKeyDown(KeyCode.Escape))
+        else if (canvasGame == true && Input.GetKeyDown(KeyCode.Escape))
         {
             ButtonStart();
         }

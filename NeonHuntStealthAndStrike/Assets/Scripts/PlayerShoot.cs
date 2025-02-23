@@ -20,6 +20,9 @@ public class PlayerShoot : MonoBehaviour
     public float shootAudioVolume = 0.5f;
     UIBehaviour uIBehaviour;
 
+    public AudioClip shootSFX;
+    public AudioSource audioSource;
+
     private void Start()
     {
         currentAmmo = maxAmmo; 
@@ -47,7 +50,7 @@ public class PlayerShoot : MonoBehaviour
             if (shootAudioClips.Length > 0)
             {
                 var index = Random.Range(0, shootAudioClips.Length);
-                AudioSource.PlayClipAtPoint(shootAudioClips[index], transform.position, shootAudioVolume);
+                audioSource.PlayOneShot(shootSFX);
             }
 
             currentAmmo--;

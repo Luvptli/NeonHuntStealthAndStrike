@@ -11,6 +11,7 @@ namespace StarterAssets
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM 
     [RequireComponent(typeof(PlayerInput))]
+
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
@@ -27,10 +28,6 @@ namespace StarterAssets
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
-
-        public AudioClip LandingAudioClip;
-        public AudioClip[] WheelAudioClips;
-        [Range(0, 1)] public float WheelAudioVolume = 0.5f;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float Gravity = -15.0f;
@@ -99,7 +96,11 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
-#if ENABLE_INPUT_SYSTEM 
+        public AudioSource audioSource;
+        public AudioClip wheelSFX;
+        public AudioClip robotSFX;
+
+#if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
         private Animator _animator;
@@ -166,6 +167,7 @@ namespace StarterAssets
 
                 wheel.transform.Rotate(Vector3.back * rotationAmount, Space.Self);
             }
+            audioSource.PlayOneShot(robotSFX);
         }
 
         private void LateUpdate()
@@ -219,6 +221,7 @@ namespace StarterAssets
 
         private void Move()
         {
+           
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
@@ -381,26 +384,6 @@ namespace StarterAssets
             Gizmos.DrawSphere(
                 new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
                 GroundedRadius);
-        }
-
-        private void OnFootstep(AnimationEvent animationEvent)
-        {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                if (WheelAudioClips.Length > 0)
-                {
-                    var index = Random.Range(0,WheelAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(WheelAudioClips[index], transform.TransformPoint(_controller.center), WheelAudioVolume);
-                }
-            }
-        }
-
-        private void OnLand(AnimationEvent animationEvent)
-        {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),WheelAudioVolume);
-            }
         }
     }
 }
