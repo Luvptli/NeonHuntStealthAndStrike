@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-  
+    private EnemyCounter enemyCounter;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-       
-    }
+        // Buscar el GameManager o el objeto que tiene el script EnemyCounter
+        enemyCounter = GameObject.Find("Enemies").GetComponent<EnemyCounter>();
 
-    private void OnTriggerEnter (Collider other)
-    {
-        if (other.CompareTag("Bullet"))
+        // Agregar este enemigo al contador de enemigos cuando el enemigo se crea
+        if (enemyCounter != null)
         {
-            Destroy(gameObject);
-            Destroy(other.gameObject);
+            enemyCounter.AddEnemy();
         }
     }
 
- 
+    // Método que se llama cuando el enemigo es destruido
+    private void OnDestroy()
+    {
+        // Reducir el contador de enemigos cuando este enemigo es destruido
+        if (enemyCounter != null)
+        {
+            enemyCounter.RemoveEnemy();
+        }
+    }
+
+    // Aquí puedes tener la lógica de cómo el enemigo es destruido (por ejemplo, por una bala)
+    // Por ejemplo, el script de la bala llamaría a Destroy(gameObject) cuando golpea al enemigo.
 }
+

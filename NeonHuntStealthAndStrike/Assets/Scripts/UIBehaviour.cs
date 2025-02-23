@@ -39,8 +39,13 @@ public class UIBehaviour : MonoBehaviour
 
     public bool estaJugando;
 
+    public AudioClip menuMusic;
+    public AudioClip gameMusic;
+    public AudioSource audioSource;
+
     void Start()
     {
+        audioSource.PlayOneShot(menuMusic);
         canvasMainMenu.SetActive(true);
         canvasOptions.SetActive(false);
         canvasGame.SetActive(false);
@@ -75,6 +80,8 @@ public class UIBehaviour : MonoBehaviour
     }
     public void ButtonStart()
     {
+        audioSource.Stop();
+        audioSource.PlayOneShot(gameMusic);
         canvasMainMenu.SetActive(false);
         canvasOptions.SetActive(false);
         canvasGame.SetActive(true);
@@ -165,6 +172,8 @@ public class UIBehaviour : MonoBehaviour
     {
         if (estaJugando && Input.GetKeyDown(KeyCode.Escape))
         {
+            audioSource.Stop();
+            audioSource.PlayOneShot(menuMusic);
             canvasPause.SetActive(true);
             estaJugando = false;
             Cursor.lockState = CursorLockMode.None;
