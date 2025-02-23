@@ -21,6 +21,7 @@ public class PlayerShoot : MonoBehaviour
     UIBehaviour uIBehaviour;
 
     public AudioClip shootSFX;
+    public AudioClip recharge;
     public AudioSource audioSource;
 
     private void Start()
@@ -33,9 +34,10 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space) /*|| Input.GetMouseButtonDown(0)*/)
         {
             Shoot();
+            
         }
     }
 
@@ -46,13 +48,7 @@ public class PlayerShoot : MonoBehaviour
         if (currentAmmo > 0)
         {
             Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-
-            if (shootAudioClips.Length > 0)
-            {
-                var index = Random.Range(0, shootAudioClips.Length);
-                audioSource.PlayOneShot(shootSFX);
-            }
-
+            audioSource.PlayOneShot(shootSFX);
             currentAmmo--;
             //_animator.SetTrigger(_animIDShoot); // Activar animación de disparo
         }
@@ -68,7 +64,7 @@ public class PlayerShoot : MonoBehaviour
         Debug.Log("Reloading...");
         //_animator.SetTrigger(_animIDReload); // Activar animación de recarga
         yield return new WaitForSeconds(reloadSpeed); // Simula el tiempo de recarga
-
+        audioSource.PlayOneShot(recharge);
         currentAmmo = maxAmmo;
         isReloading = false;
     }
