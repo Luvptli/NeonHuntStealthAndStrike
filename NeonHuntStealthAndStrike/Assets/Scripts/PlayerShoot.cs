@@ -23,6 +23,7 @@ public class PlayerShoot : MonoBehaviour
     UIBehaviour uIBehaviour;
     [SerializeField] GameObject player;
     private PointsManager pointsManager;
+    StarterAssetsInputs input;
 
     public AudioClip shootSFX;
     public AudioClip recharge;
@@ -36,11 +37,12 @@ public class PlayerShoot : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animIDShoot = Animator.StringToHash("Shoot");
         _animIDReload = Animator.StringToHash("Reload");
+        input = player.GetComponent<StarterAssetsInputs>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) /*|| Input.GetMouseButtonDown(0)*/)
+        if (input.shoot /*|| Input.GetMouseButtonDown(0)*/)
         {
             Shoot();
         }
