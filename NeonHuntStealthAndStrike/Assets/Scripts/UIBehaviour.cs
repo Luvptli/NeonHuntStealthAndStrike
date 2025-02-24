@@ -43,6 +43,8 @@ public class UIBehaviour : MonoBehaviour
     public AudioClip gameMusic;
     public AudioSource audioSource;
 
+    public GameObject touchControls; // Assign your touch button panel in the inspector
+
     void Start()
     {
         audioSource.PlayOneShot(menuMusic);
@@ -68,6 +70,15 @@ public class UIBehaviour : MonoBehaviour
         else
         {
             toggleCompleteScreen.isOn = false;
+        }
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            touchControls.SetActive(true); // Show touch controls on Android
+        }
+        else
+        {
+            touchControls.SetActive(false); // Hide touch controls on other platforms
         }
     }
 
@@ -200,5 +211,12 @@ public class UIBehaviour : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 0f;
+    }
+
+    public void WinGame()
+    {
+        EndGame();
+        canvasLose.SetActive(false);
+        canvasWin.SetActive(true);
     }
 }

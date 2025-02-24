@@ -11,9 +11,15 @@ public class EnemyCounter : MonoBehaviour
 
     public TextMeshProUGUI enemy;
 
+    public UIBehaviour uIBehaviour;
+
     void Update()
     {
         enemy.text = eliminatedEnemies.ToString() + "  /  " + totalEnemies.ToString();
+        if (totalEnemies == eliminatedEnemies)
+        {
+            uIBehaviour.EndGame();
+        }
     }
     // Método para aumentar el total de enemigos
     public void AddEnemy()

@@ -13,6 +13,8 @@ public class TimerManager : MonoBehaviour
     public float timer = 420;
     [SerializeField]
     UIBehaviour uiBehaviour;
+
+    private float elapsedTime = 0f;
     void Update()
     {
         float minutos = Mathf.FloorToInt(timer / 60F);
@@ -20,11 +22,14 @@ public class TimerManager : MonoBehaviour
 
         if (uiBehaviour.estaJugando==true)
         {
+            elapsedTime += Time.deltaTime; // Accumulate elapsed time
             timer -= Time.deltaTime;
             timeLabel.text = timer.ToString();
             timeLabel.text = string.Format("{0:00}:{1:00}", minutos, segundos);
             if (timer <= 0)
             {
+                int totalSeconds = Mathf.FloorToInt(elapsedTime);
+                FindObjectOfType<PointsManager>().AddBonusPoints(totalSeconds * 10);
                 uiBehaviour.EndGame();
             }
         }

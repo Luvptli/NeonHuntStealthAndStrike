@@ -60,7 +60,7 @@ public class PlayerShoot : MonoBehaviour
             bullet.SetActive(true);
             audioSource.PlayOneShot(shootSFX);
             currentAmmo--;
-            pointsManager.SubtractPointsForShot();
+            pointsManager.SubtractPointsForShoot();
             //_animator.SetTrigger(_animIDShoot); // Activar animación de disparo
         }
         else
