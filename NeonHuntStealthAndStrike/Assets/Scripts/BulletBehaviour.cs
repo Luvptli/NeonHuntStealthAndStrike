@@ -4,63 +4,26 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
+    public GenericPool bulletPool;
+
     public float speed = 20f;
     public float lifetime = 10f;
     private Vector3 direction;
     private PointsManager pointsManager;
+    float maxDistance;
+
+    Rigidbody bulletRb;
 
     private void Start()
     {
+        bulletRb = GetComponent<Rigidbody>();
         pointsManager = FindObjectOfType<PointsManager>();
-        FindTarget();
-        if (pointsManager != null)
-        {
-            pointsManager.SubtractPointsForShot();
-        }
-        Destroy(gameObject, lifetime);
-        // Restar puntos al disparar
-        
+        //FindTarget();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position += direction * speed * Time.deltaTime;
-    }
-
-    private void FindTarget()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length >20)
-        {
-            float minDistance = Mathf.Infinity;
-            GameObject closestEnemy = null;
-
-            foreach (GameObject enemy in enemies)
-            {
-                float distance = Vector3.Distance(transform.position, enemy.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    closestEnemy = enemy;
-                }
-            }
-
-            if (closestEnemy != null)
-            {
-                float alturaExtra = 3f;
-                Vector3 targetPosition = closestEnemy.transform.position + Vector3.up * alturaExtra;
-                direction = (targetPosition - transform.position).normalized;
-                transform.LookAt(targetPosition);
-            }
-            else
-            {
-                direction = transform.forward;
-            }
-        }
-        else
-        {
-            direction = transform.forward;
-        }
+        bulletRb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -75,6 +38,6 @@ public class BulletBehaviour : MonoBehaviour
             Destroy(collision.gameObject); // Destruye al enemigo
         }
 
-        Destroy(gameObject); // Destruye la bala
+        bulletPool.ReturnToPool(gameObject); // Destruye la bala
     }
 }

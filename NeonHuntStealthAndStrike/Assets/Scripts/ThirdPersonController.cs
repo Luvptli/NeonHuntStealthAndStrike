@@ -167,7 +167,7 @@ namespace StarterAssets
 
                 wheel.transform.Rotate(Vector3.back * rotationAmount, Space.Self);
             }
-            audioSource.PlayOneShot(robotSFX);
+            //audioSource.PlayOneShot(robotSFX);
         }
 
         private void LateUpdate()

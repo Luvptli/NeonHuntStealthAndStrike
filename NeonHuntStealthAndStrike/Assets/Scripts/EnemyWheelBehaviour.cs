@@ -10,6 +10,13 @@ public class EnemyWheelBehaviour : MonoBehaviour
     // Radio de la rueda (en unidades)
     public float wheelRadius = 0.5f;
 
+    public AudioSource audioSource;
+    public AudioClip wheelSFX;
+
+    private void Start()
+    {
+        audioSource.PlayOneShot(wheelSFX);
+    }
     void Update()
     {
         // Obtiene la velocidad actual del agente (en unidades/segundo)
