@@ -7,7 +7,7 @@ public class PlayerShoot : MonoBehaviour
 {
     GenericPool bulletsPool;
     
-    public int maxAmmo = 2; 
+    public int maxAmmo = 4; 
     private int currentAmmo;
     private bool isReloading = false;
     public float reloadSpeed = 0.5f;
@@ -35,13 +35,12 @@ public class PlayerShoot : MonoBehaviour
         bulletsPool = player.GetComponent<GenericPool>();
         currentAmmo = maxAmmo; 
         _animator = GetComponent<Animator>();
-        _animIDShoot = Animator.StringToHash("Shoot");
-        _animIDReload = Animator.StringToHash("Reload");
         input = player.GetComponent<StarterAssetsInputs>();
     }
 
     private void Update()
     {
+        //Poner cooldown entre disparos
         if (input.shoot /*|| Input.GetMouseButtonDown(0)*/)
         {
             Shoot();
@@ -50,22 +49,23 @@ public class PlayerShoot : MonoBehaviour
 
     public void Shoot()
     {
-        if (isReloading) return; // Evita disparar mientras recarga
-
-        if (currentAmmo > 0)
+        if (!isReloading)
         {
-            GameObject bullet = bulletsPool.GetElementFromPool();
-            bullet.transform.position = shootPoint.position;
-            bullet.transform.rotation = shootPoint.rotation;
-            bullet.SetActive(true);
-            audioSource.PlayOneShot(shootSFX);
-            currentAmmo--;
-            pointsManager.SubtractPointsForShoot();
-            //_animator.SetTrigger(_animIDShoot); // Activar animación de disparo
-        }
-        else
-        {
-            StartCoroutine(Reload());
+            if (currentAmmo > 0)
+            {
+                GameObject bullet = bulletsPool.GetElementFromPool();
+                bullet.transform.position = shootPoint.position;
+                bullet.transform.rotation = shootPoint.rotation;
+                bullet.SetActive(true);
+                audioSource.PlayOneShot(shootSFX);
+                currentAmmo--;
+                pointsManager.SubtractPointsForShoot();
+                _animator.SetTrigger("Shoot");
+            }
+            else
+            {
+                StartCoroutine(Reload());
+            }
         }
     }
 
@@ -73,7 +73,6 @@ public class PlayerShoot : MonoBehaviour
     {
         isReloading = true;
         Debug.Log("Reloading...");
-        //_animator.SetTrigger(_animIDReload); 
         yield return new WaitForSeconds(reloadSpeed);
         audioSource.PlayOneShot(recharge);
         currentAmmo = maxAmmo;

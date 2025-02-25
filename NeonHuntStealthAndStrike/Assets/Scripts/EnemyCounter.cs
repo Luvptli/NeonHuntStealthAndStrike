@@ -18,7 +18,7 @@ public class EnemyCounter : MonoBehaviour
         enemy.text = eliminatedEnemies.ToString() + "  /  " + totalEnemies.ToString();
         if (totalEnemies == eliminatedEnemies)
         {
-            uIBehaviour.EndGame();
+            uIBehaviour.WinGame();
         }
     }
     // Método para aumentar el total de enemigos
