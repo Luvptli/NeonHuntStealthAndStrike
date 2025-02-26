@@ -29,23 +29,35 @@ public class PlayerShoot : MonoBehaviour
     public AudioClip recharge;
     public AudioSource audioSource;
 
+    bool canShoot = true;
+    float coolDown = 2f;
+
     private void Start()
     {
         pointsManager = FindObjectOfType<PointsManager>();
         bulletsPool = player.GetComponent<GenericPool>();
         currentAmmo = maxAmmo; 
         _animator = GetComponent<Animator>();
-        input = player.GetComponent<StarterAssetsInputs>();
+        input = player.GetComponent<StarterAssetsInputs>();     
     }
 
     private void Update()
     {
         //Poner cooldown entre disparos
-        if (input.shoot /*|| Input.GetMouseButtonDown(0)*/)
+        if (input.shoot && canShoot/*|| Input.GetMouseButtonDown(0)*/)
         {
             Shoot();
+            canShoot = false;
+            StartCoroutine(CoolDown());
         }
     }
+    IEnumerator CoolDown()
+    {
+        yield return new WaitForSeconds(coolDown);
+        canShoot=true;
+        yield return null;
+    }
+
 
     public void Shoot()
     {
