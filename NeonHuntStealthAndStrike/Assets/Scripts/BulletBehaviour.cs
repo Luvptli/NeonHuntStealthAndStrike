@@ -18,11 +18,7 @@ public class BulletBehaviour : MonoBehaviour
     {
         bulletRb = GetComponent<Rigidbody>();
         pointsManager = FindObjectOfType<PointsManager>();
-        
-        if (lifetime <= 9.98)
-        {
-            bulletPool.ReturnToPool(gameObject);
-        }
+        //FindTarget();
     }
 
     private void FixedUpdate()

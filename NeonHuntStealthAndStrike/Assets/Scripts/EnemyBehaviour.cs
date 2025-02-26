@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     private EnemyCounter enemyCounter;
+    public AudioClip wheelSFX;
+    public AudioSource audioSource;
+    public UIBehaviour uIBehaviour;
 
     private void Start()
     {
@@ -18,6 +21,15 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (uIBehaviour.estaJugando == true)
+        {
+            audioSource.PlayOneShot(wheelSFX);
+        }
+        
+    }
+
     // Método que se llama cuando el enemigo es destruido
     private void OnDestroy()
     {
@@ -28,7 +40,5 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    // Aquí puedes tener la lógica de cómo el enemigo es destruido (por ejemplo, por una bala)
-    // Por ejemplo, el script de la bala llamaría a Destroy(gameObject) cuando golpea al enemigo.
 }
 

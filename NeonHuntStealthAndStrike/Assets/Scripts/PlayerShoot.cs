@@ -7,19 +7,18 @@ public class PlayerShoot : MonoBehaviour
 {
     GenericPool bulletsPool;
     
-    public int maxAmmo = 4; 
+    public int maxAmmo = 2; 
     private int currentAmmo;
     private bool isReloading = false;
     public float reloadSpeed = 0.5f;
 
-    private Animator _animator;
+    public Animator _animator;
+    private Animator _animator2;
     private int _animIDShoot;
     private int _animIDReload;
 
     [SerializeField] Transform shootPoint;
     public GameObject bulletPrefab;
-    public AudioClip[] shootAudioClips;
-    public float shootAudioVolume = 0.5f;
     UIBehaviour uIBehaviour;
     [SerializeField] GameObject player;
     private PointsManager pointsManager;
@@ -39,16 +38,20 @@ public class PlayerShoot : MonoBehaviour
         currentAmmo = maxAmmo; 
         _animator = GetComponent<Animator>();
         input = player.GetComponent<StarterAssetsInputs>();     
+
+        _animIDShoot = Animator.StringToHash("Shoot");
+        _animIDReload = Animator.StringToHash("Reload");
+        input = player.GetComponent<StarterAssetsInputs>();
     }
 
     private void Update()
-    {
-        //Poner cooldown entre disparos
+    { 
         if (input.shoot && canShoot/*|| Input.GetMouseButtonDown(0)*/)
         {
-            Shoot();
-            canShoot = false;
-            StartCoroutine(CoolDown());
+            Shoot(); 
+            input.shoot = false;
+            audioSource.PlayOneShot(shootSFX);
+            _animator.SetTrigger("Shoot");
         }
     }
     IEnumerator CoolDown()
@@ -58,26 +61,26 @@ public class PlayerShoot : MonoBehaviour
         yield return null;
     }
 
-
     public void Shoot()
     {
-        if (!isReloading)
+        if (isReloading) return; // Evita disparar mientras recarga
+
+        if (currentAmmo > 0)
         {
-            if (currentAmmo > 0)
-            {
-                GameObject bullet = bulletsPool.GetElementFromPool();
-                bullet.transform.position = shootPoint.position;
-                bullet.transform.rotation = shootPoint.rotation;
-                bullet.SetActive(true);
-                audioSource.PlayOneShot(shootSFX);
-                currentAmmo--;
-                pointsManager.SubtractPointsForShoot();
-                _animator.SetTrigger("Shoot");
-            }
-            else
-            {
-                StartCoroutine(Reload());
-            }
+            GameObject bullet = bulletsPool.GetElementFromPool();
+            bullet.transform.position = shootPoint.position;
+            bullet.transform.rotation = shootPoint.rotation;
+            bullet.SetActive(true);
+            
+            currentAmmo--;
+            pointsManager.SubtractPointsForShoot();
+            canShoot = false;
+            StartCoroutine(CoolDown());
+            //_animator.SetTrigger(_animIDShoot); // Activar animación de disparo
+        }
+        else
+        {
+            StartCoroutine(Reload());
         }
     }
 
@@ -85,6 +88,7 @@ public class PlayerShoot : MonoBehaviour
     {
         isReloading = true;
         Debug.Log("Reloading...");
+        //_animator.SetTrigger(_animIDReload); 
         yield return new WaitForSeconds(reloadSpeed);
         audioSource.PlayOneShot(recharge);
         currentAmmo = maxAmmo;
