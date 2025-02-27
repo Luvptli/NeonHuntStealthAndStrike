@@ -7,15 +7,19 @@ public class PowerUpEnergy : MonoBehaviour
     [SerializeField] EnergySystem energySystem;
     void Start()
     {
-        energySystem =FindObjectOfType<EnergySystem>();
+        energySystem = FindObjectOfType<EnergySystem>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            energySystem.totalEnergy = 100;
-            Destroy(gameObject);
-        }
+            if (energySystem.totalEnergy< 100)
+            {
+                Destroy(gameObject);
+                energySystem.totalEnergy = 100;
+            }
+        } 
     }
 }
+

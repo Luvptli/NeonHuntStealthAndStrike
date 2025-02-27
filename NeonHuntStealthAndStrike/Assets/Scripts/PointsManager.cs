@@ -23,7 +23,7 @@ public class PointsManager : MonoBehaviour
     // Método que se llama cuando el jugador dispara una bala
     public void SubtractPointsForShoot()
     {
-        score -= 1;  // Restar 2 puntos por cada bala disparada
+        score -= 1;  
         UpdateScoreUI();
     }
 

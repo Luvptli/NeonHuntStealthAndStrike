@@ -8,7 +8,7 @@ public class EnergySystem : MonoBehaviour
     public int totalEnergy=100;
     public int energyToShoot = 33;
     public TextMeshProUGUI energyBar;
-    float timeToRegenerate = 10;
+    public float timeToRegenerate = 10;
     int recuperation = 3;
 
 
@@ -26,15 +26,13 @@ public class EnergySystem : MonoBehaviour
 
     public void EnergyCount()
     {
-        if (totalEnergy <100)
-        {
-            timeToRegenerate-=Time.deltaTime;   
-        }
-        if (timeToRegenerate <= 0)
-        {
-            totalEnergy += recuperation;
-            timeToRegenerate = 1;
-        }
+       timeToRegenerate-=Time.deltaTime;
+       if (timeToRegenerate <= 0)
+       {
+           totalEnergy += recuperation;
+           timeToRegenerate = 1;
+       }
+        
         else if (totalEnergy >= 100)
         {
             timeToRegenerate=10;

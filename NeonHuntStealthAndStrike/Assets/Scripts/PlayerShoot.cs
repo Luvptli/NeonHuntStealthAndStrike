@@ -34,12 +34,12 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] ParticleSystem smokeEffectLeft; 
     [SerializeField] ParticleSystem smokeEffectRight;
 
-    private EnergySystem energySystem;
+    [SerializeField] EnergySystem energySystem;
+    [SerializeField] PowerUpEnergySpecial powerUpSpecial;
 
     private void Start()
     {
         pointsManager = FindObjectOfType<PointsManager>();
-        energySystem = FindObjectOfType<EnergySystem>();
         bulletsPool = player.GetComponent<GenericPool>();
         //currentAmmo = maxEnergy; 
         _animator = GetComponent<Animator>();
@@ -51,7 +51,11 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        energySystem.EnergyCount();
+        if (energySystem.totalEnergy <= 100)
+        {
+            energySystem.EnergyCount();
+        }
+        
         if (input.shoot && canShoot/*|| Input.GetMouseButtonDown(0)*/)
         {
             Shoot(); 
@@ -83,7 +87,11 @@ public class PlayerShoot : MonoBehaviour
             StartCoroutine(CoolDown());
             if (smokeEffectLeft != null) smokeEffectLeft.Play();
             if (smokeEffectRight != null) smokeEffectRight.Play();
-            energySystem.LoseEnergy();
+            if (powerUpSpecial.invencibleBool == false)
+            {
+                energySystem.LoseEnergy();
+                energySystem.timeToRegenerate = 10;
+            }
             //_animator.SetTrigger(_animIDShoot); // Activar animación de disparo
         }
         else
