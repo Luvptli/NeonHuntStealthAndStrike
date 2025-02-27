@@ -7,8 +7,8 @@ public class PlayerShoot : MonoBehaviour
 {
     GenericPool bulletsPool;
     
-    public int maxAmmo = 2; 
-    private int currentAmmo;
+    //public int maxEnergy = 100; 
+    //private int currentAmmo;
     private bool isReloading = false;
     public float reloadSpeed = 0.5f;
 
@@ -31,14 +31,17 @@ public class PlayerShoot : MonoBehaviour
     bool canShoot = true;
     float coolDown = 2f;
 
-    [SerializeField] ParticleSystem smokeEffectLeft;  // 🔥 Efecto de humo pistola izquierda
+    [SerializeField] ParticleSystem smokeEffectLeft; 
     [SerializeField] ParticleSystem smokeEffectRight;
+
+    private EnergySystem energySystem;
 
     private void Start()
     {
         pointsManager = FindObjectOfType<PointsManager>();
+        energySystem = FindObjectOfType<EnergySystem>();
         bulletsPool = player.GetComponent<GenericPool>();
-        currentAmmo = maxAmmo; 
+        //currentAmmo = maxEnergy; 
         _animator = GetComponent<Animator>();
         input = player.GetComponent<StarterAssetsInputs>();
         _animIDShoot = Animator.StringToHash("Shoot");
@@ -47,7 +50,8 @@ public class PlayerShoot : MonoBehaviour
     }
 
     private void Update()
-    { 
+    {
+        energySystem.EnergyCount();
         if (input.shoot && canShoot/*|| Input.GetMouseButtonDown(0)*/)
         {
             Shoot(); 
@@ -67,19 +71,19 @@ public class PlayerShoot : MonoBehaviour
     {
         if (isReloading) return; // Evita disparar mientras recarga
 
-        if (currentAmmo > 0)
+        if (energySystem.totalEnergy>33)
         {
             GameObject bullet = bulletsPool.GetElementFromPool();
             bullet.transform.position = shootPoint.position;
             bullet.transform.rotation = shootPoint.rotation;
             bullet.SetActive(true);
             
-            currentAmmo--;
             pointsManager.SubtractPointsForShoot();
             canShoot = false;
             StartCoroutine(CoolDown());
             if (smokeEffectLeft != null) smokeEffectLeft.Play();
             if (smokeEffectRight != null) smokeEffectRight.Play();
+            energySystem.LoseEnergy();
             //_animator.SetTrigger(_animIDShoot); // Activar animación de disparo
         }
         else
@@ -95,7 +99,7 @@ public class PlayerShoot : MonoBehaviour
         //_animator.SetTrigger(_animIDReload); 
         yield return new WaitForSeconds(reloadSpeed);
         audioSource.PlayOneShot(recharge);
-        currentAmmo = maxAmmo;
+        //currentAmmo +=3;
         isReloading = false;
     }
 }
