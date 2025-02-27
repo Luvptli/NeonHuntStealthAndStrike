@@ -1,4 +1,4 @@
-using StarterAssets;
+﻿using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,14 +31,16 @@ public class PlayerShoot : MonoBehaviour
     bool canShoot = true;
     float coolDown = 2f;
 
+    [SerializeField] ParticleSystem smokeEffectLeft;  // 🔥 Efecto de humo pistola izquierda
+    [SerializeField] ParticleSystem smokeEffectRight;
+
     private void Start()
     {
         pointsManager = FindObjectOfType<PointsManager>();
         bulletsPool = player.GetComponent<GenericPool>();
         currentAmmo = maxAmmo; 
         _animator = GetComponent<Animator>();
-        input = player.GetComponent<StarterAssetsInputs>();     
-
+        input = player.GetComponent<StarterAssetsInputs>();
         _animIDShoot = Animator.StringToHash("Shoot");
         _animIDReload = Animator.StringToHash("Reload");
         input = player.GetComponent<StarterAssetsInputs>();
@@ -76,7 +78,9 @@ public class PlayerShoot : MonoBehaviour
             pointsManager.SubtractPointsForShoot();
             canShoot = false;
             StartCoroutine(CoolDown());
-            //_animator.SetTrigger(_animIDShoot); // Activar animaci�n de disparo
+            if (smokeEffectLeft != null) smokeEffectLeft.Play();
+            if (smokeEffectRight != null) smokeEffectRight.Play();
+            //_animator.SetTrigger(_animIDShoot); // Activar animación de disparo
         }
         else
         {
