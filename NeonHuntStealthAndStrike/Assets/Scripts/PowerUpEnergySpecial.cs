@@ -7,9 +7,15 @@ public class PowerUpEnergySpecial : MonoBehaviour
     [SerializeField] EnergySystem energySystem;
     public float invencible = 5;
     public bool invencibleBool = false;
+
+    private void Awake()
+    {
+        energySystem = EnergySystem.instance;
+    }
+
     void Start()
     {
-        energySystem = FindObjectOfType<EnergySystem>();
+        
         invencibleBool = false;
     }
 

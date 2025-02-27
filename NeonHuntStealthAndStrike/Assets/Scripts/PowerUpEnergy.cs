@@ -7,7 +7,7 @@ public class PowerUpEnergy : MonoBehaviour
     [SerializeField] EnergySystem energySystem;
     void Start()
     {
-        energySystem = FindObjectOfType<EnergySystem>();
+        energySystem = EnergySystem.instance;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -5,11 +5,18 @@ using TMPro;
 
 public class EnergySystem : MonoBehaviour
 {
+    public static EnergySystem instance;
+    
     public int totalEnergy=100;
     public int energyToShoot = 33;
     public TextMeshProUGUI energyBar;
     public float timeToRegenerate = 10;
     int recuperation = 3;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
 
     // Start is called before the first frame update
